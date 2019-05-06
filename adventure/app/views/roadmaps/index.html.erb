@@ -1,0 +1,28 @@
+<p id="notice"><%= notice %></p>
+<a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_roadmap_path%>">New Roadmap +</a>
+<br>
+<h1>Roadmaps</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= will_paginate @initiatives %> <!-- paginates -->
+    <% @roadmaps.each do |roadmap| %>
+      <tr>
+        <td><%= roadmap.name %></td>
+        <td><%= roadmap.description %></td>
+        <td><%= link_to 'Show', roadmap %></td>
+        <td><%= link_to 'Edit', edit_roadmap_path(roadmap) %></td>
+        <td><%= link_to 'Destroy', roadmap, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

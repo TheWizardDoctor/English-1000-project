@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @feature.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @feature.description %>
+</p>
+
+<p>
+  <strong>Initiative:</strong>
+  <%= link_to @feature.initiative_id, initiative_path(@feature.initiative_id) %>
+</p>
+
+<p>
+  <strong>Quater:</strong>
+  <%= @feature.quater %>
+</p>
+
+<%= link_to 'Edit', edit_feature_path(@feature) %> |
+<%= link_to 'Features', features_path %>
+<br>
+<br>
+<p>
+  <strong>Teams:</strong>
+  <% Investment.where(feature_id: @feature.id).find_each do |i| %>
+    <% team = Team.find(i.team_id) %>
+    <p>
+    <strong>  Name:</strong>
+    <%= link_to team.name, team_path(team) %>
+     | <strong>Percentage invested: </strong>
+     <%= "#{i.investment}% | " %>
+     <%= link_to 'change', edit_investment_path(i) %>
+     | <%= link_to 'remove', i, method: :delete, data: { confirm: 'Are you sure?' } %>
+   </p>
+  <% end %>
+  <strong>Add a Team:</strong>
+  <%= link_to('+', new_investment_path(@feature))%>
+</p>
